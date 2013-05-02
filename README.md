@@ -1,14 +1,13 @@
-SocialGeeks CTF Training
-========
+# SocialGeeks CTF Training
 
 The training will be broken into two sections, morning and afternoon.  
 
-# Morning
+## Morning
 * HTTP/Web  
 * IRC  
 * Security 
 
-# Afternoon 
+## Afternoon 
 * CLI  
 * SQL  
 
