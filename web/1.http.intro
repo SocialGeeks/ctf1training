@@ -1,0 +1,14 @@
+request/response client/server model
+works as the foundation of data communication on the web
+stateless
+v1.1
+HTTP is the application layer that web technologies run on top.  It acts as the transport layer, but has the ability to do much more.  See RESTful style of architecture.
+
+HTTP gives you a way to interact with resources.  Resources are identified by the URI.  URL is a subset of URI that most people are familiar with.
+
+Web browser acts as a common client, but certainly not the only one.  A lot more to HTTP than just the web.
+
+HTTP was designed to be proxied to help improve or enable communications that couldn't happen otherwise.
+
+Browser caches, border proxies can cache (give demo with TRACE)
+

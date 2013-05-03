@@ -1,0 +1,3 @@
+ curl -H "Content-Type:application/json" http://localhost:5000/api/player/create -d '{"name":"sgviking"}
+
+
