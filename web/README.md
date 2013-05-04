@@ -140,67 +140,87 @@ If the HTTP request is replayed with one of these methods, the results should be
 * PUT  
 * DELETE  
 
-# curl
+# HTTP transactions unmasked  
 
-## How do we know if our request is being tampered with?
+Use paros proxy to browse the web and then go through the requests and responses as look at the different parts of the requests and responses.  The trap tab in paros can be used to catch an outgoing request and edit it prior to delivery.  Use wireshark to show that you can view any http traffic.  
 
-Not perfect and blocked by a lot of sites, but can be a useful debugging tool.
+# cURL
+
+## TRACE
+
+How do we know if our request is being changed between us and the webserver? Not perfect and blocked by a lot of sites, but can be a useful debugging tool.  
 
 	curl -X TRACE challenge_server  
 
 ## Google search  
 
-curl http://www.google.com/search?q=kali  
-## Gives a client not allowed error, good chance to probe the crowd about figuring out how to figure out why?
-## What is different between this and netcat/telnet?
-curl -A "" http://www.google.com/search?q=kali -0
-## Now we know that Google discriminates against the User-agent header
-curl -H "User-agent:Dan Rocks!" http://www.google.com/search?q=kali -0
-## And they certainly don't respect my authority!
-## Who's authority would they respect?  My browser?  More wireshark to get user-agent on a browser search to Google
-curl -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31" http://www.google.com/search?q=kali -0
-curl -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31" http://google.com/search?q=kali -0
-curl -X GET http://duckduckgo.com/?q=kali&format=json
-## What happened, two things that I see
-curl -X GET "http://duckduckgo.com/?q=kali&format=json"
-curl -X GET http://duckduckgo.com/?q=kali
-curl -X GET https://duckduckgo.com/?q=kali
-## So they discriminate against us if we don't specify the format on the HTTP version?
-## Is it a HTTP version?
-curl -X GET http://duckduckgo.com/?q=kali -0
-curl -A "" -X GET http://duckduckgo.com/?q=kali -0
-curl -A "" -X GET http://duckduckgo.com/?q=kali
-## Another way to manipulate the headers with curl
-curl -H "User-Agent:" -X GET http://duckduckgo.com/?q=kali
-## Or we could pass in a valid user-agent as before.
-curl -H "User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31" -X GET http://duckduckgo.com/?q=kali
-curl -H "User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31" -X GET https://duckduckgo.com/?q=kali
-## That is good, they appear to be forcing common user-agent strings over to https
+	curl http://www.google.com/search?q=kali  
 
-curl -X POST -H "User-Agent:" http://duckduckgo.com/ -d "q=kali linux&format=json"
-curl -X POST -H "User-Agent:" -H "Referer: Dan" https://duckduckgo.com/ -d "q=kali linux&format=json"
-curl -X POST -H "User-Agent:" -H "Referer: http://google.com/q=duckduckgo"  http://duckduckgo.com/ -d "q=kali linux&format=xml"
+* Why do we get a client not allowed error?  This worked with netcat.
+* What is different between this and netcat?
 
-## For the leaderboard you will need to pass the data in json (common with API's)
-curl -H "Content-Type:application/json" http://localhost:5000/api/player/create -d '{"name":"sgviking"}
+## Google search proper
 
-# proxy
+	curl -A "" http://www.google.com/search?q=kali -0  
+	curl -A "" http://www.google.com/search?q=kali
 
-Use paros proxy to browse the web and then go through the requests and responses as a way to introduce them to a more headers.  
+* Now we know that Google discriminates against the User-Agent header
 
-Pop open wireshark to show that the HTTP traffic can be collected.  
+## Google search my way  
 
-# HTTP headers
+	curl -H "User-Agent: Dan Rocks" http://www.google.com/search?q=kali  
+	curl -A "curl" http://www.google.com/search?q=kali  
 
-	Content-Type: application/json  
-	Host:  
-	Referer:  
-	User-Agent:  
+* Google appears to respect my authority, but not the authority of cURL
 
-# HTTP request
+### Who's authority would they respect?
+My browser?  Time to use wireshark to get user-agent on a browser search to Google.  
 
-wireshark/paros  
+	curl -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31" http://www.google.com/search?q=kali  
 
-# HTTP response
+	curl -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31" http://www.google.com/search?q=kali  
 
-wireshark/paros  
+## DuckDuckGo!  
+
+	curl -X GET http://duckduckgo.com/?q=kali&format=json  
+
+* What happened, two things that I see?
+* Did that command even run right?  
+
+## DuckDuckGo again  
+
+	curl -X GET "http://duckduckgo.com/?q=kali&format=json"  
+	curl -X GET http://duckduckgo.com/?q=kali  
+	curl -X GET https://duckduckgo.com/?q=kali  
+
+* So they discriminate against us if we don't specify the format on the HTTP version?
+* Why does it work on https?  
+
+### Is it a HTTP version?  
+
+	curl -X GET http://duckduckgo.com/?q=kali -0  
+	curl -A "" -X GET http://duckduckgo.com/?q=kali  
+	
+* Nope looks like they are discriminating against the User-Agent
+* Why?  
+
+### Proper User-Agent  
+
+	curl -H "User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31" -X GET http://duckduckgo.com/?q=kali  
+
+	curl -H "User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31" -X GET https://duckduckgo.com/?q=kali  
+
+* That's good, they appear to be forcing common User-Agent strings over to https  
+
+## Referer and multiple headers  
+
+	curl -X POST -H "User-Agent:" http://duckduckgo.com/ -d "q=kali linux&format=json"  
+	curl -X POST -H "User-Agent:" -H "Referer: Dan" https://duckduckgo.com/ -d "q=kali linux&format=json"  
+
+## Knock it off Google!  
+
+	curl -X POST -H "User-Agent:" -H "Referer: http://google.com/q=duckduckgo"  http://duckduckgo.com/ -d "q=kali linux&format=xml"  
+
+## For the leaderboard you will need to pass the data in json (common with API's)  
+
+	curl -H "Content-Type:application/json" http://arch_challenges:5000/api/player/create -d '{"name":"sgviking"}  
