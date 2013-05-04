@@ -221,6 +221,6 @@ My browser?  Time to use wireshark to get user-agent on a browser search to Goog
 
 	curl -X POST -H "User-Agent:" -H "Referer: http://google.com/q=duckduckgo"  http://duckduckgo.com/ -d "q=kali linux&format=xml"  
 
-## For the leaderboard you will need to pass the data in json (common with API's)  
+# Register for the leaderboard  
 
 	curl -H "Content-Type:application/json" http://arch_challenges:5000/api/player/create -d '{"name":"sgviking"}  
