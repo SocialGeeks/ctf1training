@@ -3,8 +3,8 @@
 The training will be broken into two sections, morning and afternoon.  
 
 ## Morning
-* HTTP/Web  
 * IRC  
+* HTTP/Web  
 * Security 
 
 ## Afternoon 
