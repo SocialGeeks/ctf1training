@@ -1,0 +1,172 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033\deflangfe2052{\fonttbl{\f0\fmodern\fprq1\fcharset0 Courier New;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\nowidctlpar\b\f0\fs32 SQL : From high orbit.\b0\fs22\par
+\par
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \par
+\par
+0. Data\par
+   a. What is data?\par
+   b. Why is it important?\par
+\par
+1. Storing Data\par
+   a. Requirements\par
+   c. Data Models\par
+\par
+2. Retrieving data (T-SQL)\par
+   a. Structured Query Language\par
+   b. SELECT Overview\par
+\par
+3. Conditional Logic\par
+   a. Boolean Logic\par
+   b. Boolean Operators\par
+   c. Table Value vs. Query Constance\par
+\par
+4. Functions\par
+   a. How are functions used?\par
+   b. Some useful functions\par
+\par
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \par
+\par
+\b\fs24 Section 0 - Data\fs22\par
+\b0\par
+1. What is data?\par
+\par
+\pard\nowidctlpar\fi-270\li450 - Data, in this context, is the content of any computing system. It is everything that is not code and without it, no knowledge could be gained from a computing system.\par
+\pard\nowidctlpar\par
+\pard\nowidctlpar\fi-270\li450 - Code is at some point considered data. However in context of processing, the code is not data.  - Data is what is processed.\par
+\pard\nowidctlpar\par
+2. Data is primary\par
+\par
+\pard\nowidctlpar\fi-270\li450 - Data is essential to computing. Websites, applications, and mobile applications are all built to provide or collect data to/from users.\par
+\par
+- The content of this data is the most valuable resource to the providers of software. It gives the application meaning and imparts value to the application and company that owns it. Data is essential to computing.\par
+\pard\nowidctlpar\par
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \par
+\par
+\b\fs24 Section 1 - Storing Data\b0\fs22\par
+\par
+1. Requirements\par
+\par
+\pard\nowidctlpar\fi-270\li450 - There are many ways to store and transport data. Structured text file such as this document might work in some applications where others might require more elaborate constructs with specific features.\par
+\par
+- In general, software requires a flexible amount of storage with quick access and reliable consistency.\par
+\par
+- SQL Servers are a common choice for applications because they are fast, they enforce consistency, and they are stable.\par
+\pard\nowidctlpar\par
+2. Data Models\par
+\par
+\pard\nowidctlpar\fi-270\li450 - Most SQL servers are based on the relation model. This model defines how data is stored. It is specific to data context but we will focus more on logical origination in general.\par
+\par
+- Relation Databases store data in tables as a collection of rows and columns. \par
+\par
+- A table represents an entity, or singular concept of data such as users.\par
+\par
+- A column represents a singular attribute of the entity such as Username.\par
+\par
+- A Row represents related attributes in context to other attributes in the same row. For example, a user\rquote s Name and Email address.\par
+\pard\nowidctlpar\par
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \par
+\par
+\b\fs24 Section 2 - Retrieving Data (T-SQL)\par
+\b0\fs22\par
+1. Structured Query Language\par
+\par
+\pard\nowidctlpar\fi-270\li450 - SQL, Structured Query Language, is the vernacular understood by the majority of SQL servers. It is used to define structure, manipulate and control data. (DDL, DML, DCL respectively). We will focus on 1 command of SQLs Data Manipulation Language known as the SELECT statement.\par
+\pard\nowidctlpar\tab    \par
+2. SELECT Overview\par
+\par
+\pard\nowidctlpar\fi-270\li450 - The SELECT statement is used to retrieve rows and columns for a table or a set of tables and form them into something that can be used. This is the full definition. We will only focus on the first 3 lines.\par
+\pard\nowidctlpar\tab      \tab\par
+\pard\nowidctlpar\li720\i SELECT\tab  [ COLUMNS | EXPRESSIONS ]\par
+FROM   \tab  [ TABLE | VIEWS ]\par
+WHERE  \tab  [ CONDITIONS ]\par
+GROUP BY \tab  [ AGGREGATES ]\par
+HAVING\tab  [ AGGREGATE CONDITIONS ] \par
+ORDER BY \tab  [ COLUMNS | EXPRESSIONS ]\par
+\pard\nowidctlpar\i0\tab\tab\par
+\pard\nowidctlpar\fi-270\li450 - The first line requires columns and expressions. A column is nothing more than the name of the attribute.  You can list as many as you want and even repeat them. Column names are separated by a comma.  SELECT name, email ...\par
+\par
+- The next line requires table names. There is nothing special here.\par
+\par
+\pard\nowidctlpar\li720\i SELECT name, email\par
+FROM users\par
+\pard\nowidctlpar\fi-270\li450\i0\par
+- The 3rd line asks for conditions. Just like the column list limits the attributes returned, conditions limit the rows returned.\par
+\par
+\pard\nowidctlpar\li720\i SELECT name, email\par
+FROM users\par
+WHERE name = 'admin'\i0\par
+\pard\nowidctlpar\par
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \par
+\par
+\b\fs24 Section 3 - Conditional Logic\par
+\b0\fs22\par
+1. Boolean Logic\par
+\par
+\pard\nowidctlpar\fi-270\li450 - As with all elements of this statement, the where clause can become quite complicated and supports narrowing returned rows down to an exact slice of the data. This is all done with Boolean logic.\par
+\par
+- Boolean logic is a simple concept that a condition is either true or it is false. Multiple conditions can be provided and the Boolean return of all conditions will evaluate to a single true or false.\par
+\par
+- This conditional changing is done by taking the result of a single comparison and applying it to the next through 1 of 2 chaining key words. \i AND, OR\i0 . Also expressed \i &&, ||\i0\par
+\par
+\pard\nowidctlpar\li720\i SELECT name, email\par
+FROM users\par
+WHERE name = 'admin' or name = 'dba'\i0\par
+\pard\nowidctlpar\par
+2. Boolean Operators\par
+\par
+\pard\nowidctlpar\fi-270\li450 - There are many types of comparisons that can be made. Equality, as you have seen above, evaluates to true if the values on both sides of the operator are the same. Here is a list of several more:\par
+\par
+\pard\nowidctlpar\fi-810\li1530\i >\i0      Greater Than is used to compare numbers.\par
+\i <\i0      Less Than is also used to compare numbers.\par
+\i Like \i0\tab Compares a value to a pattern. e.g.: email LIKE '%@%.com'\par
+\i NOT \i0   This is actually used in combination of other operators. NOT name = 'admin'\par
+\pard\nowidctlpar\fi-270\li450\par
+- Note that these comparisons are non-case specific by default and special approaches must be used to compare values in a case specific manor.\par
+\pard\nowidctlpar\par
+3. Columns and Constants\par
+\par
+\pard\nowidctlpar\fi-270\li450 - So far we have compared a Value stored in a column to a constant value. This is not a requirement. You can compare columns to other columns, columns to parts of other columns, constants to parts of columns and so on.\par
+\par
+- Infect, SQL is very loose about what you can compare. As long as it evaluates to true or false, it does not care.\par
+\par
+- Constant values come in a few different flavors depending on the [TYPE] of data.\par
+\par
+\pard\nowidctlpar\li720\i column = 2 or column = '2' or column = "2"\par
+column = 'string' or column = "string"\par
+\pard\nowidctlpar\i0\par
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \par
+\par
+\b\fs24 Section 4 - Functions\b0\fs22\par
+\tab\par
+1. What are functions?\par
+\par
+\pard\nowidctlpar\fi-270\li450 - A function is a piece of utility code that helps simplify code or expand its functionality. Functions tend to distribution specific but here is a comparable function across most SQL Server types.\par
+\par
+- Functions can be used in nearly any part of our select statement. Columns, Tables, Conditions, even the parts we didn\rquote t talk about like group by, and having statements and even more.\par
+\pard\nowidctlpar\par
+2. Useful Functions\par
+\par
+\pard\nowidctlpar\fi-270\li450 - Let\rquote s look at a few specific functions to MYSQL.\par
+\pard\nowidctlpar\par
+\pard\nowidctlpar\li720\i substring([text],[start],[length])\par
+\i0 Get a total of [length] from [text] starting at the index [start].\par
+\par
+\i length([text])\par
+\i0 Get the number of characters in the text.\par
+\par
+\i ASCII([text])\par
+\i0 Returns the ASCII value of the left most char in the text.\par
+\pard\nowidctlpar\par
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \par
+\par
+This is truly only the tip of the iceberg for SQL and only a spec of sand on the beach of data storage. Databases technology is constantly changing and new ideas are being invented every day to solve for specific challenges presented by technology.\par
+\par
+Learn More: \par
+\par
+\pard\fi-270\li450 - w3schools SQL Tutorial - {\field{\*\fldinst{HYPERLINK "http://www.w3schools.com/sql/"}}{\fldrslt{\ul\cf1 http://www.w3schools.com/sql/}}}\f0\fs22\par
+- MySQL Reference Manual - {\field{\*\fldinst{HYPERLINK "http://dev.mysql.com/doc/index.html"}}{\fldrslt{\ul\cf1 http://dev.mysql.com/doc/index.html}}}\f0\fs22\par
+- Transact-SQL Reference Manual - {\field{\*\fldinst{HYPERLINK "http://msdn.microsoft.com/en-us/library/bb510741.aspx"}}{\fldrslt{\ul\cf1 http://msdn.microsoft.com/en-us/library/bb510741.aspx}}}\f0\fs22\par
+\pard\nowidctlpar\par
+}
+ 

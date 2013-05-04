@@ -1,0 +1,113 @@
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+#control {
+    position: absolute;
+    top:0;
+    left:0; right: 0;
+    background: rgb(47, 49, 41);
+    border-bottom: 1px solid black;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+}
+
+#editor {
+    position: absolute;
+    top:25px; bottom: 45%;
+    left:0; right: 0;
+
+    font-size: x-large;
+}
+
+#control a {
+    padding: 1px 8px 3px 8px;
+    margin: 1px;
+}
+
+#control a:hover {
+    background: #666;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+#status {
+    float: right;
+    margin-right: 5px;
+}
+#status.working {
+    color: #aa1;
+}
+
+#status.error {
+    color: #a11;
+}
+
+#status.ready {
+    color: #1a1;
+}
+
+#result.full,
+#result {
+    position: absolute;
+    top: 55%; bottom: 0;
+    left: 0; right: 0;
+    border-top: 1px solid black;
+    overflow-y: scroll;
+    z-index: 10;
+
+    background: rgb(47, 49, 41);
+    color: white;
+    font-size: large;
+    padding: 10px;
+}
+
+#result.full {
+    top: 0px;
+}
+
+#result table {
+    border-collapse: collapse;
+    box-shadow: 0px 0px 8px #AAA;
+}
+
+#result th {
+    background: #AAA;
+    color: #111;
+    text-align: left;
+}
+
+#result td,
+#result th {
+    border: 1px solid #666;
+    margin:0px;
+    padding: 3px 15px 3px 15px;
+}
+
+#result .alt {
+    background: rgb(63, 65, 57);
+}
+
+form {
+    display: inline-block;
+    text-align: right;
+}
+
+label {
+    display: block;
+}
+
+input {
+    margin: 5px;
+    padding: 3px;
+    display: inline-block;
+    border: 1px solid #AAA;
+    border-radius: 3px;
+    box-shadow: 0px 0px 8px rgba(102, 102, 102, 0.62);
+}

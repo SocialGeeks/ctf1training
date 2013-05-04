@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    h1=title
+    p Visit the online&nbsp;
+        a(href='/editor') Editor
+    br
+    form(action='/user', method='post')
+        label(for='user') Username:
+            input(name='user', type='text')
+        label(for='pass') Password:
+            input(name='pass', type='password')
+        input(type='submit', value='Login')
+
+
+

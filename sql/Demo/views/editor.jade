@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    #control
+        a(href='javascript:void(0)', id='aExec') Execute
+        a(href='javascript:void(0)', data-load='/demos/demo1.sql') Section 1
+        a(href='javascript:void(0)', data-load='/demos/demo2.sql') Section 2
+        a(href='javascript:void(0)', data-load='/demos/demo2a.sql') Section 2a
+        a(href='javascript:void(0)', data-load='/demos/demo3.sql') Section 3
+        a(href='javascript:void(0)', data-load='/demos/demo3a.sql') Section 3a
+        a(href='javascript:void(0)', data-load='/demos/demo3b.sql') Section 3b
+        a(href='javascript:void(0)', data-load='/demos/demo3c.sql') Section 3c
+        a(href='javascript:void(0)', data-load='/demos/demo4.sql') Section 4
+        a(href='javascript:void(0)', data-load='/demos/demo4a.sql') Section 4a
+        #status(class='ready') DB NAME: sgctf_sqldemo
+    #editor SELECT * FROM Users;
+    #result
+block scripts
+    script(src='javascripts/Editor.js')
