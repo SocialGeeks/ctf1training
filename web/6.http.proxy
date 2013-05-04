@@ -1,4 +1,0 @@
-Use paros proxy to browse the web and then go through the requests and responses as a way to introduce them to a more headers.
-
-Pop open wireshark to show that the HTTP traffic can be collected.
-
