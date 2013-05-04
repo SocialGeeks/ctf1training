@@ -224,10 +224,10 @@ My browser?  Time to use wireshark to get user-agent on a browser search to Goog
 # SGCTF and cURL  
 ## Register for the leaderboard  
 
-	curl -H "Content-Type: application/json" http://arch_challenges:5000/api/player/create -d '{"name":"sgviking"}  
+	curl -H "Content-Type: application/json" http://arch_challenges:5000/api/player/create -d '{"name":"viking"}  
 
 * This will return a token that you will use to register flags
 
 ## Submit flags to leaderboard  
 
-	curl -H "Content-Type: application/json" http://arch_challenges:5000/api/flag/capture -d '{"token": "random_user_token", password: "recovered_flag"}'  
+	curl -H "Content-Type: application/json" http://192.168.10.123:5000/api/flag/capture -d '{"token": "your_random_token_here", "password": "captured_flag"}'  
