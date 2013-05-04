@@ -1,20 +1,37 @@
 # HTTP Intro
 
-request/response client/server model  
+## Simple request/response client/server model  
+
 Works as the foundation of data communication on the web, but is used for a lot more.  
-stateless  
-v1.1  
-HTTP is the application layer that web technologies run on top.  It acts as the transport layer, but has the ability to do much more.  See RESTful style of architecture.  
+
+* stateless  
+* v1.1  
+
+HTTP is the application layer that web technologies run on top.  It acts as the transport layer, but has the ability to do much more.  See [RESTful style of architecture](https://en.wikipedia.org/wiki/Representational_state_transfer).  
+
+## Resource driven  
 
 HTTP gives you a way to interact with resources.  Resources are identified by the URI.  URL is a subset of URI that most people are familiar with.  
 
-Web browser acts as a common client, but certainly not the only one.  A lot more to HTTP than just the web.  
+Web browser acts as a common client, but certainly not the only one.  Due to it's flexibility, simplicity and feature set, a lot more going on with HTTP than just the web.  
+
+* Data API servers (SalesForce, GitHub)
+* Cloud API services (Amazon, Rackspace)
+
+## Proxies & Cache
 
 HTTP was designed to be proxied to help improve or enable communications that couldn't happen otherwise.  
 
-Browser caches, border proxies can cache (give demo with TRACE)  
+The HTTP response can be cached at many places along the way which saves on server resources and network bandwidth.  Can also be a frustrating problem to solve when you forget. =)
 
-# TCP/IP tools (netcat/telnet)
+### Potential cache locations  
+
+* Local client browser  
+* Network border proxies  
+* ISP proxies  
+* Server-side reverse proxies  
+
+# Getting our hands dirty (netcat)  
 
 This could all be done with a telnet client on a Windows box as well.  
 
@@ -23,23 +40,38 @@ This could all be done with a telnet client on a Windows box as well.
 	nc google.com 80  
 	HEAD / HTTP/1.0  
 
-* Why did I do version 1.0 instead of 1.1.?  
+* Why did I use version 1.0 instead of 1.1.?  
 
 ## HTTP 1.1  
 
-	nc google.com 80  
-	HEAD / HTTP/1.1  
-
-* errors out because of missing Host: header
+	nc socialgeeks.com 80  
+	HEAD / HTTP/1.1 
 
 	nc google.com 80  
-	HEAD / HTTP/1.1  
-	Host: www.google.com  
+	HEAD / HTTP/1.1
 
-* notice the persistent connection?
+* Why did one error and one work?
+
+## HTTP 1.1 proper
+
+	nc socialgeeks.com 80  
+	HEAD / HTTP/1.1  
+	Host: socialgeeks.com  
+
+* Notice the persistent connection?  
+
+## HTTP 1.1 persistent  
+
+	nc socialgeeks.com 80  
+	HEAD / HTTP/1.1  
+	Host: socialgeeks.com 
+
+	... response trimmed ...
 
 	OPTIONS / HTTP/1.1
-	Host: www.google.com
+	Host: socialgeeks.com
+
+* Allowing the OPTIONS method does give away information and is disabled on a lot of websites (as opposed to an HTTP API)  
 
 ## OPTIONS  
 
@@ -101,6 +133,14 @@ Idempotent methods
 * DELETE
 
 # curl
+
+## How do we know if our request is being tampered with?
+
+Not perfect and blocked by a lot of sites, but can be a useful debugging tool.
+
+	curl -X TRACE challenge_server  
+
+## Google search  
 
 curl http://www.google.com/search?q=kali  
 ## Gives a client not allowed error, good chance to probe the crowd about figuring out how to figure out why?
