@@ -212,12 +212,12 @@ My browser?  Time to use wireshark to get user-agent on a browser search to Goog
 
 * That's good, they appear to be forcing common User-Agent strings over to https  
 
-## Referer and multiple headers  
+### Referer and multiple headers  
 
 	curl -X POST -H "User-Agent:" http://duckduckgo.com/ -d "q=kali linux&format=json"  
 	curl -X POST -H "User-Agent:" -H "Referer: Dan" https://duckduckgo.com/ -d "q=kali linux&format=json"  
 
-## Knock it off Google!  
+### Knock it off Google!  
 
 	curl -X POST -H "User-Agent:" -H "Referer: http://google.com/q=duckduckgo"  http://duckduckgo.com/ -d "q=kali linux&format=xml"  
 
