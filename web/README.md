@@ -64,20 +64,18 @@ This could all be done with a telnet client on a Windows box as well.
 
 	nc socialgeeks.com 80  
 	HEAD / HTTP/1.1  
-	Host: socialgeeks.com 
+	Host: socialgeeks.com  
 
-	... response trimmed ...
+	... response trimmed ...  
 
-	OPTIONS / HTTP/1.1
-	Host: socialgeeks.com
+	OPTIONS / HTTP/1.1  
+	Host: socialgeeks.com  
 
 * Allowing the OPTIONS method does give away information and is disabled on a lot of websites (as opposed to an HTTP API)  
 
 ## OPTIONS  
 
-* Show a server that allows the OPTIONS method  
-
-	nc challenge_server 80  
+	nc arch-challenges 80  
 	OPTIONS / HTTP/1.0  
 
 ## Do a google search  
@@ -98,39 +96,49 @@ Use a browser to see the syntax.
 
 	nc duckduckgo.com 80 > search-results  
 	GET /q=ctf&format=json HTTP/1.0  
+	more search-results  
+	grep security search-results  
 
 # HTTP status codes  
 
-Allows an applications to give descriptive errors directory through the HTTP protocol.  
+[HTTP status codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) are returned in the first line of the HTTP response and can specify a number of things. an applications to give descriptive errors directory through the HTTP protocol.  
 
+* 1xx - informational
 * 2xx - success  
-* 3xx - redirect  
-* 4xx - error  
+* 3xx - redirection 
+* 4xx - client error  
 * 5xx - server error  
+
+Status codes give you a quick way to see why/where things are going wrong.  
 
 # HTTP Methods
 
-* GET
-* HEAD
-* POST
-* PUT
-* DELETE
-* TRACE
-* OPTIONS
-* CONNECT
-* PATCH
+[HTTP methods or verbs](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) are specified in the first line of the HTTP request.  
 
-Safe methods (part of the nature being safe makes them idempotent)  
+* GET - retrieves a resource  
+* HEAD - retrieve HTTP headers  
+* POST - create a new subordinate resource to the specified URI  
+* PUT - update or create a resource at the specified URI  
+* DELETE - delete specified resource  
+* TRACE - debugging method, returns what you sent  
+* OPTIONS - shows available methods, useful for APIs  
+* PATCH - partially update specified resource  
 
-* HEAD
-* GET
-* OPTIONS
-* TRACE
+## Safe methods  
 
-Idempotent methods  
+The following methods should not create any changes on the server.  This abused all the time by developers using GET to udpate resources.  By virtue of being safe, these methods are also idempotent.  
 
-* PUT
-* DELETE
+* HEAD  
+* GET  
+* OPTIONS  
+* TRACE  
+
+## Idempotent methods  
+
+If the HTTP request is replayed with one of these methods, the results should be the same.  
+
+* PUT  
+* DELETE  
 
 # curl
 
